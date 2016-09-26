@@ -72,6 +72,14 @@ void InverseDCT(float* y, const float* x, const float* q, int size)
 {
 	// TODO: part of Homework Task 1
 	// takes a vector x and produce as output a vector y where y = sum x_k * q_k
+	for (int i = 0; i < size; i++)
+	{
+		y[i] = 0;
+		for (int j = 0; j < size; j++)
+		{
+			y[i] += *x*q[i*size + j];
+		}
+	}
 
 }
 
@@ -79,35 +87,24 @@ void DCT(float* x, const float* y, const float* q, int size)
 {
 	// TODO: part of Homework Task 1
 	// takes a vector y and produce as output a vector x,  where the kth element of the vector can be computed from x_k = q_k * y
-	for (int i = 0; i < 64; i++)
-		std::cout << q[i] << ", ";
-		std::cout << "\n";
-		std::cin.get();
-
-	/*
-	int i = 0;
-	int leng = sizeof(x);
-	int leng2 = sizeof(y);
-	for (i; i < leng; i++)
-	{
-		for (int j = 0; j < leng2;j++)
-			x[i] = q[i][j] * y[i]
-	}
-	*/
-
+	for (int i = 0; i < size; i++)
+		x[i] = dotProduct(q+(i*size), y, 8);
 }
-
+/**
+Make kth line of the NxN Q matrix
+**/
 void DCTvector(int N, int k, float* q)
 {
-	// TODO: part of Homework Task 1
-	// generate vector q, which is defined in equation (1)
 	int ind = 1;
 	float pifrac = (M_PI / 16);
 	int ksub1 = k-1;
-	float sk = (k == 1) ? 1 / (2*sqrt(2)) : .5f;
+	//float sk = (k == 0) ? 1 / (2*sqrt(2)) : .5f;
 	for (int i = 0; i < N; i++)
 	{
-		q[ksub1*N+i] = sk*cos(pifrac*(ksub1)*((2 * ind) - 1));
+		//printf("INDEX:%f \n", pifrac*k*((2 * ind) + 1));
+		float plzComputeMe = pifrac*k*((2 * i) + 1);
+		q[(i)] = cos(plzComputeMe);
+		//printf("INDEX:%d \n",i*N+k);
 		ind++;
 	}
 }
@@ -339,38 +336,33 @@ void transposeMatrix(float* mt, float * m, const int sz)
 }
 float * mult_matrix(float*a, float*b, int szx)
 {
+	//printf("sizx: %d\n ", szx);
+	int isx = 0;
 	float * retme = new float[szx*szx];
+	
 	//MAXIMUM INEFFICIENCY!!!
 	for (int i = 0; i < szx; i++)
+	{
+		isx = i*szx;
 		for (int j = 0; j < szx; j++)
 		{
+			retme[isx + j] = 0;
 			for (int k = 0; k < szx; k++)
-				retme[i*szx+j] += a[i*szx+k] * b[k*szx+j];
+			{
+
+				retme[isx + j] += a[isx + k] * b[k*szx + j];
+				//printf("%f * %f = %f \n", a[isx + k], b[k*szx + j], retme[isx + j]);
+			}
+
 		}
+	}
 	return retme;
 
 }
 
 int main()
 {
-	int diag = 4;
-	float * q = new float[diag*diag];
-	float * qt = new float[diag * diag];
-	for (int i = 1; i < diag;i++)
-		DCTvector(diag, i, q);
-	transposeMatrix(qt,q, diag);
-	printf("q=\n");
-	OutputMatrix(q, diag);
-
-
-	printf("qt=\n");
-	OutputMatrix(qt, diag);
-
-	q = mult_matrix(q, qt, diag);
-		printf("qqt=\n");
-	OutputMatrix(q, diag);
-
-	std::cin.get();
+	
 	loadWAVFile();
 
 	compressWAVSignal();

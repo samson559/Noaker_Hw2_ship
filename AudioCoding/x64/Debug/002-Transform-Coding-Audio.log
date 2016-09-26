@@ -1,14 +1,13 @@
-﻿Build started 9/23/2016 2:39:11 PM.
-     1>Project "C:\Users\samso\Google Drive\Classes 2016\Fall\4600\Homework2\HW2-ship-2\AudioCoding\002-Transform-Coding-Audio.vcxproj" on node 2 (Build target(s)).
+﻿Build started 9/26/2016 12:59:54 PM.
+     1>Project "C:\Users\samso\Desktop\Noaker_HW2_ship\AudioCoding\002-Transform-Coding-Audio.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Iext\stb /Iext\glew\include /Iext\glfw\include /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /D _MBCS /D _CRT_SECURE_NO_WARNINGS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt main.cpp
          main.cpp
-     1>main.cpp(107): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\samso\Google Drive\Classes 2016\Fall\4600\Homework2\HW2-ship-2\AudioCoding\x64\Debug\002-Transform-Coding-Audio.exe" /INCREMENTAL /NOLOGO /LIBPATH:ext\glfw\lib\release /LIBPATH:ext\glew\lib glew32.lib glfw3.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\samso\Google Drive\Classes 2016\Fall\4600\Homework2\HW2-ship-2\AudioCoding\x64\Debug\002-Transform-Coding-Audio.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\samso\Google Drive\Classes 2016\Fall\4600\Homework2\HW2-ship-2\AudioCoding\x64\Debug\002-Transform-Coding-Audio.lib" /MACHINE:X64 x64\Debug\main.obj
-         002-Transform-Coding-Audio.vcxproj -> C:\Users\samso\Google Drive\Classes 2016\Fall\4600\Homework2\HW2-ship-2\AudioCoding\x64\Debug\002-Transform-Coding-Audio.exe
-     1>Done Building Project "C:\Users\samso\Google Drive\Classes 2016\Fall\4600\Homework2\HW2-ship-2\AudioCoding\002-Transform-Coding-Audio.vcxproj" (Build target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\samso\Desktop\Noaker_HW2_ship\AudioCoding\x64\Debug\002-Transform-Coding-Audio.exe" /INCREMENTAL /NOLOGO /LIBPATH:ext\glfw\lib\release /LIBPATH:ext\glew\lib glew32.lib glfw3.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\samso\Desktop\Noaker_HW2_ship\AudioCoding\x64\Debug\002-Transform-Coding-Audio.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\samso\Desktop\Noaker_HW2_ship\AudioCoding\x64\Debug\002-Transform-Coding-Audio.lib" /MACHINE:X64 x64\Debug\main.obj
+         002-Transform-Coding-Audio.vcxproj -> C:\Users\samso\Desktop\Noaker_HW2_ship\AudioCoding\x64\Debug\002-Transform-Coding-Audio.exe
+     1>Done Building Project "C:\Users\samso\Desktop\Noaker_HW2_ship\AudioCoding\002-Transform-Coding-Audio.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.00
+Time Elapsed 00:00:00.94
