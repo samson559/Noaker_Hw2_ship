@@ -70,14 +70,13 @@ void normalize(float* a, int size)
 
 void InverseDCT(float* y, const float* x, const float* q, int size)
 {
-	// TODO: part of Homework Task 1
 	// takes a vector x and produce as output a vector y where y = sum x_k * q_k
 	for (int i = 0; i < size; i++)
 	{
 		y[i] = 0;
 		for (int j = 0; j < size; j++)
 		{
-			y[i] += *x*q[i*size + j];
+			y[i] += x[j]*q[i*size + j];
 		}
 	}
 
@@ -100,10 +99,8 @@ void DCTvector(int N, int k, float* q)
 	int ksub1 = k-1;
 	//float sk = (k == 0) ? 1 / (2*sqrt(2)) : .5f;
 	for (int i = 0; i < N; i++)
-	{
-		//printf("INDEX:%f \n", pifrac*k*((2 * ind) + 1));
-		float plzComputeMe = pifrac*k*((2 * i) + 1);
-		q[(i)] = cos(plzComputeMe);
+	{	
+		q[(i)] = cos(pifrac*k*((2 * i) + 1));
 		//printf("INDEX:%d \n",i*N+k);
 		ind++;
 	}
@@ -309,6 +306,8 @@ void compressWAVSignal()
 		DCT(x, g_wav_data + i, q, 8);
 
 		// TODO: set last m element as zero
+		for (int j = 2; j < 8; j++)
+			g_wav_data[i+j]= 0;
 
 		//inverse the Discrete Cosine Transform to g_compress_wav_data
 		InverseDCT(g_compress_wav_data + i, x, q, 8);

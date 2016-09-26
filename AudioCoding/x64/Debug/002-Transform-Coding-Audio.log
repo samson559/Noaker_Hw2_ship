@@ -1,4 +1,4 @@
-﻿Build started 9/26/2016 12:59:54 PM.
+﻿Build started 9/26/2016 2:28:12 PM.
      1>Project "C:\Users\samso\Desktop\Noaker_HW2_ship\AudioCoding\002-Transform-Coding-Audio.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Iext\stb /Iext\glew\include /Iext\glfw\include /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /D _MBCS /D _CRT_SECURE_NO_WARNINGS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt main.cpp
@@ -10,4 +10,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.94
+Time Elapsed 00:00:00.80
