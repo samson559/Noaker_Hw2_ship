@@ -12,6 +12,8 @@ unsigned int g_windowHeight = 600;
 char* g_windowName = "HW2-Transform-Coding-Image";
 
 #define IMAGE_FILE "data/cameraman.ppm"
+#define BLOCK_WIDTH 8
+#define DEBUG 2
 
 GLFWwindow* g_window;
 
@@ -67,13 +69,109 @@ void outerProduct(const float* a, const float* b, float* r, int size)
 
 void CompressBlock(const float* A, float* B, int m)
 {
+	float* C = new float[8*8];
+	float cu,cv = 0;
+	float pifrac = M_PI / 16;
+	//compress 
+	for (int i = 0; i < BLOCK_WIDTH; i++)
+	{
+		cu = (i == 0) ? 1 / (2.0f * sqrt(2)) : .5f;
+		for (int j = 0; j < BLOCK_WIDTH; j++)
+		{
+			cv = (j == 0) ? 1 / (2.0f * sqrt(2)) : .5f;
+
+			if (i+j > m)
+			{
+				C[i*BLOCK_WIDTH + j] = 0;
+			}
+			else
+			{
+				C[i*BLOCK_WIDTH + j] = 0;
+				for (int k = 0; k < BLOCK_WIDTH; k++)
+					for (int l = 0; l < BLOCK_WIDTH; l++)
+						C[i*BLOCK_WIDTH + j] += A[k*BLOCK_WIDTH + l] * (cos(pifrac*(2 * k + 1)*i))*(cos(pifrac*(2 * l + 1)*j));
+				C[i*BLOCK_WIDTH + j] *= cu*cv;
+			}
+		}
+	}
+	if (DEBUG==1)
+	{
+		for (int k = 0; k < BLOCK_WIDTH; k++)
+		{
+			puts("");
+			for (int l = 0; l < BLOCK_WIDTH; l++)
+				printf("%f, ", C[k*BLOCK_WIDTH + l]);
+		}
+		puts("");
+	}
+	
+	//Normally you would save here but we
+	//Decompress
+	for (int i = 0; i < BLOCK_WIDTH; i++)
+	{
+		cu = (i == 0) ? 1 / (2.0f * sqrt(2)) : .5f;
+		for (int j = 0; j < BLOCK_WIDTH; j++)
+		{
+			cv = (j == 0) ? 1 /( 2.0f * sqrt(2)) : .5f;
+				B[i*BLOCK_WIDTH + j] = 0;
+				for (int k = 0; k < BLOCK_WIDTH; k++)
+					for (int l = 0; l < BLOCK_WIDTH; l++)
+						B[i*BLOCK_WIDTH + j] += C[k*BLOCK_WIDTH + l] * (cos(pifrac*(2 * k + 1)*i))*(cos(pifrac*(2 * l + 1)*j));
+				B[i*BLOCK_WIDTH + j] *= cu*cv;
+			
+		}
+	}
+	if (DEBUG==1)
+	{
+		for (int k = 0; k < BLOCK_WIDTH; k++)
+		{
+			puts("");
+			for (int l = 0; l < BLOCK_WIDTH; l++)
+				printf("%f, ", B[k*BLOCK_WIDTH + l]);
+		}
+		puts("");
+	}
+	
+	
 	// TODO: Homework Task 2 (see the PDF description)
+	delete C;
 
 }
 
-void CompressImage(const std::vector<float> I, std::vector<float>& O, int m)
+void CompressImage(const std::vector<float> I, std::vector<float>&O, int m)
 {
-	// TODO: Homework Task 2 (see the PDF description)
+	float * Iblock=  new float[BLOCK_WIDTH*BLOCK_WIDTH];
+	float * Oblock = new float[BLOCK_WIDTH * BLOCK_WIDTH];
+	for (int i = 0; i < g_image_width / 8; i++)
+	{
+		for (int j = 0; j < g_image_height / 8; j++)
+		{
+			//get a block
+			for (int k = 0; k < BLOCK_WIDTH; k++)
+				for (int l = 0; l < BLOCK_WIDTH; l++)
+				{
+					Iblock[k*BLOCK_WIDTH + l] = I[(i*BLOCK_WIDTH + k)*g_image_width + j*BLOCK_WIDTH + l];
+				}
+			//compress it
+			CompressBlock(Iblock, Oblock, m);
+			if (DEBUG == 2)
+			{
+				for (int k = 0; k < BLOCK_WIDTH; k++)
+				{
+					puts("");
+					for (int l = 0; l < BLOCK_WIDTH; l++)
+						printf("%f, ", Oblock[k*BLOCK_WIDTH + l]);
+				}
+				puts("");
+			}
+			//put it in O
+			for (int k = 0; k < BLOCK_WIDTH; k++)
+				for (int l = 0; l < BLOCK_WIDTH; l++)
+				{
+					O[(i*BLOCK_WIDTH + k)*g_image_width + j*BLOCK_WIDTH + l] = Oblock[k*BLOCK_WIDTH + l];
+				}
+		}
+	}
 
 }
 
@@ -264,7 +362,7 @@ int main()
 {
 	loadImage();
 
-	int n = 3;	// TODO: change the parameter n from 1 to 16 to see different image quality
+	int n = 2;	// TODO: change the parameter n from 1 to 16 to see different image quality
 	CompressImage(g_luminance_data, g_compressed_luminance_data, n);	
 
 	writeImage();
